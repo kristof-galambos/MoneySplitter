@@ -117,38 +117,14 @@ public class Application {
         for (int i=0; i<users.size() - numberOfNegatives; i++) {
             sortedPositives[i] = sortedIDs[numberOfNegatives+i];
         }
-        /*
-        System.out.println("Sorted negatives:");
-        for (int id: sortedNegatives) { // for debugging purposes
-            System.out.println(id);
-        }
-        System.out.println("Sorted positives:");
-        for (int id: sortedPositives) { // for debugging purposes
-            System.out.println(id);
-        }
-
-         */
         HashMap<Integer, Integer> id2sortedId = new HashMap<Integer, Integer>();
         HashMap<Integer, Integer> sortedId2id = new HashMap<Integer, Integer>();
         for (int i: sortedIDs) {
             id2sortedId.put(i, sortedIDs[i]);
             sortedId2id.put(sortedIDs[i], i);
         }
-        //go through sorted negatives, the largest negative pays to the smallest positive
-        /*for (int i=0; i<users.size(); i++) {
-            if (balances.get(i) < 0) {
-                int[] direction = new int[2];
-                direction[0] = i;
-            }
-        }
-
-         */
         double[] balancesChanging = new double[users.size()];
-        /*for (int i=0; i<users.size(); i++) {
-            balancesChanging[i] = balances.get(i);
-        }
-
-         */
+        
         for (int i=0; i<numberOfNegatives; i++) {
             balancesChanging[i] = balances.get(sortedNegatives[i]);
         }
@@ -169,33 +145,21 @@ public class Application {
                     	}
                         transactions.put(direction, -balancesChanging[i]);
                         System.out.println(users.get(id2sortedId.get(i)) + " pays " + users.get(id2sortedId.get(numberOfNegatives+j)) + " the amount of " + String.valueOf(-balancesChanging[i]));
-                        //System.out.println(users.get(sortedId2id.get(i)) + " pays " + users.get(sortedId2id.get(numberOfNegatives+j)) + " the amount of " + String.valueOf(-balancesChanging[i]));
                         balancesChanging[numberOfNegatives + j] += balancesChanging[i];
                         balancesChanging[i] = 0;
                     }
                     else {
                         transactions.put(direction, balancesChanging[numberOfNegatives + j]);
                         System.out.println(users.get(id2sortedId.get(i)) + " pays " + users.get(id2sortedId.get(numberOfNegatives+j)) + " the amount of " + String.valueOf(balancesChanging[numberOfNegatives + j]));
-                        //System.out.println(users.get(sortedId2id.get(i)) + " pays " + users.get(sortedId2id.get(numberOfNegatives+j)) + " the amount of " + String.valueOf(balancesChanging[numberOfNegatives + j]));
                         balancesChanging[i] += balancesChanging[numberOfNegatives + j];
                         balancesChanging[numberOfNegatives + j] = 0;
                     }
                 }
             }
         }
-        /*
-        for (double balance: balancesChanging) {
-            System.out.println(balance);
-        }
-
-         */
     }
     
     public void splitGreedy() {
-    	//implement this:
-    	//Take the most negative and the most positive balance
-    	//The one with the smaller absolute value sends money
-    	//do this again
     	ArrayList<Integer> nullands = new ArrayList<Integer>();
         double[] balancesChanging = new double[users.size()];
         for (int asdf=0; asdf<users.size(); asdf++) {
@@ -270,12 +234,11 @@ public class Application {
 	        	System.out.println(users.get(id2sortedId.get(0)) + " pays " + users.get(id2sortedId.get(balancesChanging.length-1)) + " the amount of " + String.valueOf(-balancesChanging[0]));
 		        balancesChanging[balancesChanging.length-1] += largestNegative;
 		        balancesChanging[0] = 0;
-		        //balances.set(sortedId2id.get(0), 0.0);
 		        balances.set(id2sortedId.get(0), 0.0);
 		        balances.set(id2sortedId.get(balancesChanging.length-1), balances.get(id2sortedId.get(balancesChanging.length-1)) + largestNegative);
 	        }
     		aCounter++;
-    		if (aCounter == 15) {
+    		if (aCounter == 1000) {
     			break;
     		}
     	}
