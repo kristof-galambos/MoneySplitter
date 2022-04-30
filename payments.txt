@@ -1,0 +1,4 @@
+Alice,Bob,Charlie,David
+Alice paid 100 train-ticket
+Charlie paid 50 groceries
+David paid 10 ice-cream
