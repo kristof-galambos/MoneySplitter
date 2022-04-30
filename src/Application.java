@@ -160,12 +160,12 @@ public class Application {
     }
     
     public void splitGreedy() {
-    	ArrayList<Integer> nullands = new ArrayList<Integer>();
         double[] balancesChanging = new double[users.size()];
         for (int asdf=0; asdf<users.size(); asdf++) {
         	balancesChanging[asdf] = 1.0;
         }
     	int aCounter = 0;
+        HashMap<int[], Double> transactions = new HashMap<int[], Double>();
     	while (true) {
 	        int numberOfNegatives = 0;
 	        for (double balance: balances) {
@@ -220,18 +220,25 @@ public class Application {
 	        if (wannaBreak) {
 	        	break;
 	        }
-	        HashMap<int[], Double> transactions = new HashMap<int[], Double>();
 	        double largestNegative = balancesChanging[0];
 	        double largestPositive = balancesChanging[balancesChanging.length-1];
 	        if (-largestNegative > largestPositive) {
-	        	System.out.println(users.get(id2sortedId.get(balancesChanging.length-1)) + " pays " + users.get(id2sortedId.get(0)) + " the amount of " + String.valueOf(balancesChanging[balancesChanging.length-1]));
+	        	int payerId = id2sortedId.get(balancesChanging.length-1);
+	        	int payeeId = id2sortedId.get(0);
+	        	int[] direction = new int[] {payerId, payeeId};
+	        	transactions.put(direction, balancesChanging[balancesChanging.length-1]);
+	        	System.out.println(users.get(payerId) + " pays " + users.get(payeeId) + " the amount of " + String.valueOf(balancesChanging[balancesChanging.length-1]));
 		        balancesChanging[0] += largestPositive;
 	        	balancesChanging[balancesChanging.length-1] = 0;
 	        	balances.set(id2sortedId.get(0), balances.get(id2sortedId.get(0)) + largestPositive);
 	        	balances.set(id2sortedId.get(balancesChanging.length-1), 0.0);
 	        }
 	        else {
-	        	System.out.println(users.get(id2sortedId.get(0)) + " pays " + users.get(id2sortedId.get(balancesChanging.length-1)) + " the amount of " + String.valueOf(-balancesChanging[0]));
+	        	int payerId = id2sortedId.get(0);
+	        	int payeeId = id2sortedId.get(balancesChanging.length-1);
+	        	int[] direction = new int[] {payerId, payeeId};
+	        	transactions.put(direction, -balancesChanging[0]);
+	        	System.out.println(users.get(payerId) + " pays " + users.get(payeeId) + " the amount of " + String.valueOf(-balancesChanging[0]));
 		        balancesChanging[balancesChanging.length-1] += largestNegative;
 		        balancesChanging[0] = 0;
 		        balances.set(id2sortedId.get(0), 0.0);
