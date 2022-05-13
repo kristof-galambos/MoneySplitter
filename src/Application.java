@@ -223,8 +223,8 @@ public class Application {
 	        double largestNegative = balancesChanging[0];
 	        double largestPositive = balancesChanging[balancesChanging.length-1];
 	        if (-largestNegative > largestPositive) {
-	        	int payerId = id2sortedId.get(balancesChanging.length-1);
-	        	int payeeId = id2sortedId.get(0);
+	        	int payerId = id2sortedId.get(0);
+	        	int payeeId = id2sortedId.get(balancesChanging.length-1);
 	        	int[] direction = new int[] {payerId, payeeId};
 	        	transactions.put(direction, balancesChanging[balancesChanging.length-1]);
 	        	System.out.println(users.get(payerId) + " pays " + users.get(payeeId) + " the amount of " + df.format(balancesChanging[balancesChanging.length-1]));
