@@ -52,7 +52,7 @@ public class MainClass {
         app.addUser("Charlie");
         app.addUser("David");
         app.printUsers();
-        app.pay("Alice", 100, "train ticket");
+        app.pay("Alice", 100, "train-ticket");
         app.pay("Charlie", 50, "groceries");
         app.pay("David", 10, "ice-cream");
         return app;
