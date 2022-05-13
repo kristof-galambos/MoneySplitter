@@ -1,4 +1,9 @@
-Alice,Bob,Charlie,David
+Alice,Bob,Charlie,David,Elizabeth
 Alice paid 100 train-ticket
 Charlie paid 50 groceries
 David paid 10 ice-cream
+Elizabeth paid 80 groceries
+Bob paid 32 drinks
+David paid 180 sailboat-rental Alice,Bob,David
+Elizabeth paid 62 restaurant
+Alice paid 128 train-ticket

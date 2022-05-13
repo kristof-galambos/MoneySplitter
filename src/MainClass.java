@@ -4,17 +4,21 @@ import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) throws FileNotFoundException {
-    	String INPUT_METHOD = "hardcoded";
-    	//String INPUT_METHOD = "fromtxt";
+    	//String INPUT_METHOD = "hardcoded";
+    	String INPUT_METHOD = "fromtxt";
     	String SPLIT_METHOD = "greedy";
     	//String SPLIT_METHOD = "alternative";
     	
     	runSplitter(INPUT_METHOD, SPLIT_METHOD);
+    	//test();
     }
     
     public static void runSplitter(String input_method, String split_method) throws FileNotFoundException {
-    	Application app = initHardcoded();
-    	if (input_method == "fromtxt") {
+    	Application app = new Application();
+    	if (input_method == "hardcoded") {
+    		app = initHardcoded();
+    	}
+    	else {
     		app = initFromTxt();
     	}
     	app.printTotalPaid();
@@ -25,6 +29,20 @@ public class MainClass {
     	else {
     		app.splitGreedy();
     	}
+    }
+    
+    public static void test() throws FileNotFoundException {
+    	System.out.println("Testing hardcoded alternative:");
+    	runSplitter("hardcoded", "alternative");
+    	System.out.println();
+    	System.out.println("Testing hardcoded greedy:");
+    	runSplitter("hardcoded", "greedy");
+    	System.out.println();
+    	System.out.println("Testing fromtxt alternative:");
+    	runSplitter("fromtxt", "alternative");
+    	System.out.println();
+    	System.out.println("Testing fromtxt greedy:");
+    	runSplitter("fromtxt", "greedy");
     }
     
     public static Application initHardcoded() {
