@@ -85,6 +85,24 @@ public class Application {
             balances.set(j, balances.get(j) - amount / payees.length);
         }
     }
+    
+    public void applyCorrectionFactors(String[] correctionUsers, double[] factors) {
+    	System.out.print("Applying correction factor " + String.valueOf(factors[0]) + " for " + correctionUsers[0]);
+    	int myIndex = users.indexOf(correctionUsers[0]);
+    	double oldBalance = balances.get(myIndex);
+    	double newBalance = oldBalance * factors[0];
+    	//double diff = oldBalance - newBalance;
+    	double diff = newBalance - oldBalance;
+    	double unit = diff / (users.size() - 1);
+    	for (int i = 0; i<balances.size(); i++) {
+    		if (i==myIndex) {
+    			continue;
+    		}
+    		balances.set(i, balances.get(i) - unit);
+    	}
+    	balances.set(myIndex, newBalance);
+    	
+    }
 
     public void split() {
         int numberOfNegatives = 0;

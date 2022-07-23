@@ -1,8 +1,12 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MainClass {
+	private static ArrayList<String> correctionPersons = new ArrayList<String>(); // can we avoid static fields somehow?
+	private static ArrayList<Double> correctionFactors = new ArrayList<Double>();
+	
     public static void main(String[] args) throws FileNotFoundException {
     	//String INPUT_METHOD = "hardcoded";
     	String INPUT_METHOD = "fromtxt";
@@ -22,6 +26,17 @@ public class MainClass {
     		app = initFromTxt();
     	}
     	app.printTotalPaid();
+		
+		if (!correctionPersons.isEmpty()) {
+			String[] correctionPersonsArray = new String[correctionPersons.size()];
+			correctionPersonsArray = correctionPersons.toArray(correctionPersonsArray);
+			double[] correctionFactorsArray = new double[correctionFactors.size()];
+			for (int i=0; i<correctionFactors.size(); i++) { // arraylist to array conversion only works with loop for now
+				correctionFactorsArray[i] = correctionFactors.get(i);
+			}
+			app.applyCorrectionFactors(correctionPersonsArray, correctionFactorsArray);
+		}
+		
         app.printBalances();
     	if (split_method == "alternative") {
     		app.split();
@@ -72,6 +87,20 @@ public class MainClass {
     			app.printUsers();
     		} else {
     			String[] fields = line.split(" ");
+    			if ("correction".equals(fields[1])) {
+    				String correctionPerson = fields[0];
+    				double correctionFactor = Double.valueOf(fields[2]);
+    				correctionPersons.add(correctionPerson);
+    				correctionFactors.add(correctionFactor);
+    				try {
+    					System.out.print(" " + fields[3]);
+    					System.out.println();
+    				}
+    				catch (Exception e) {
+    					continue;
+    				}
+    				continue;
+    			}
     			String payer = fields[0];
     			double value = Double.parseDouble(fields[2]);
     			String comment = fields[3];

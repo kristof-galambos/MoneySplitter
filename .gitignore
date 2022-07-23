@@ -1,0 +1,6 @@
+*_*.txt
+*.project
+*.classpath
+*.SD_Store
+.settings/
+bin/
