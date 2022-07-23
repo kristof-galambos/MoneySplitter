@@ -1,4 +1,5 @@
-*_*.txt
+*.txt
+!payments.txt
 *.project
 *.classpath
 *.SD_Store
